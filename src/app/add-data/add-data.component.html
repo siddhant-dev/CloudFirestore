@@ -1,0 +1,4 @@
+<input type="text" #city (keyup.enter)="addHero(city.value)"
+(blur)="addHero(city.value); newHero.value='' ">
+
+<button (click)="addDB(city.value)">Add</button>
