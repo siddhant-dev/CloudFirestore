@@ -12,7 +12,7 @@ export const environment = {
     projectId: 'cloudfirestorelearning',
     storageBucket: 'cloudfirestorelearning.appspot.com',
     messagingSenderId: '681859861309',
-    appId: '1:681859861309:web:1726f8a46bf9b5b48a9354'
+    appId: '1:681859861309:web:1726f8a46bf9b5b48a9354' 
   };
 };
 
