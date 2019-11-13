@@ -8,6 +8,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AddDataComponent } from './add-data/add-data.component';
+import { ModalModule } from './ui/FeatureModule/modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { AddDataComponent } from './add-data/add-data.component';
     AngularFireModule.initializeApp(environment.config),
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
-  
+    ModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

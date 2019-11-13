@@ -68,29 +68,26 @@ export class AuthService {
         if (err.code === 'auth/account-exists-with-different-credential') {
           const method = await this.afAuth.auth.fetchSignInMethodsForEmail(err.email);
           console.log(method[0]);
-          return method;
+          return method[0];
         }
       }
     }
 
     async errorHandle(err) {
-      if (err.code === 'auth/account-exists-with-different-credential') {
-       const method = await this.afAuth.auth.fetchSignInMethodsForEmail(err.email);
-       console.log(method[0]);
        let credential;
        let provider;
-       if (method[0] === 'google.com') {
+       if (err === 'google.com') {
         provider = new auth.GoogleAuthProvider();
         credential = await this.afAuth.auth.signInWithPopup(provider).then(function(result) {
         return result.user.linkWithCredential(err.credential);
       });
-    } else if (method[0] == 'twitter.com') {
+    } else if (err === 'twitter.com') {
         provider = new auth.TwitterAuthProvider();
         credential = await this.afAuth.auth.signInWithPopup(provider).
         then(function(result) {
           return result.user.linkWithCredential(err.credential);
       });
-      } else if (method[0] == 'facebook.com') {
+      } else if (err === 'facebook.com') {
         provider = new auth.FacebookAuthProvider();
         credential = await this.afAuth.auth.signInWithPopup(provider).
         then(function(result) {
@@ -99,7 +96,6 @@ export class AuthService {
       }
 
       }
-    }
 
     private updateUserData(user) {
       // Sets user data to firestore on login

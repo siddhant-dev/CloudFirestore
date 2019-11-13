@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './fire.service';
 import { User } from 'src/user.model';
 import { from } from 'rxjs';
+import { ModalService } from './ui/FeatureModule/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,12 @@ import { from } from 'rxjs';
 })
 export class AppComponent {
   title = 'Firestore';
-
+  popup = true;
   user: string;
+  cred: any;
+  provider: string;
   li = [];
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService, private modalService: ModalService) {
 
     this.auth.user$.subscribe((payload: User) => {
       if (payload) {
@@ -26,11 +29,16 @@ export class AppComponent {
     }, (err => console.log(err)) );
   }
   async twiter() {
-    const cred = await this.auth.twitterSignin();
-    console.log(cred);
+    this.provider = 'Twitter';
+    this.cred = await this.auth.twitterSignin();
+    if(this.cred !== true){
+      this.popup = !this.popup;
+    }
 
 
   }
+
+
 
   async fb() {
     const cred = await this.auth.facebookSignin();
@@ -49,5 +57,13 @@ export class AppComponent {
   getCities() {
     console.log(this.li);
   }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+}
+
+closeModal(id: string) {
+    this.modalService.close(id);
+}
 }
 
